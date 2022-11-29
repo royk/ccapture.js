@@ -746,7 +746,6 @@ function CCapture( settings ) {
 		};
 
 		try {
-			Object.defineProperty( HTMLVideoElement.prototype, 'currentTime', { get: hookCurrentTime } )
 			Object.defineProperty( HTMLAudioElement.prototype, 'currentTime', { get: hookCurrentTime } )
 		} catch (err) {
 			_log(err);
@@ -871,6 +870,7 @@ function CCapture( settings ) {
 				_frameCount++;
 				_log( 'Full Frame! ' + _frameCount );
 			}
+			return _frameCount;
 
 		}
 
