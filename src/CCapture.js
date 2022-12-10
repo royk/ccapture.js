@@ -746,7 +746,6 @@ function CCapture( settings ) {
 		};
 
 		try {
-			Object.defineProperty( HTMLAudioElement.prototype, 'currentTime', { get: hookCurrentTime } )
 		} catch (err) {
 			_log(err);
 		}
