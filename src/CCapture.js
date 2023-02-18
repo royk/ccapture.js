@@ -195,7 +195,11 @@ CCTarEncoder.prototype.add = function( blob ) {
     if( this.settings.autoSaveTime > 0 && ( this.frames / this.settings.framerate ) >= this.settings.autoSaveTime ) {
       this.save( function( blob ) {
         this.filename = this.baseFilename + '-part-' + pad( this.part );
-        download( blob, this.filename + this.extension, this.mimeType );
+        if (this.settings.autoSaveCallback) {
+					this.settings.autoSaveCallback(blob, this.filename)+this.extension;
+				} else {
+					download( blob, this.filename + this.extension, this.mimeType );
+				}
         var count = this.count;
         this.dispose();
         this.count = count+1;
@@ -316,7 +320,11 @@ CCWebMEncoder.prototype.add = function( canvas ) {
 	if( this.settings.autoSaveTime > 0 && ( this.frames / this.settings.framerate ) >= this.settings.autoSaveTime ) {
 		this.save( function( blob ) {
 			this.filename = this.baseFilename + '-part-' + pad( this.part );
-			download( blob, this.filename + this.extension, this.mimeType );
+			if (this.settings.autoSaveCallback) {
+				this.settings.autoSaveCallback(blob, this.filename)+this.extension;
+			} else {
+				download( blob, this.filename + this.extension, this.mimeType );
+			}
 			this.dispose();
 			this.part++;
 			this.filename = this.baseFilename + '-part-' + pad( this.part );
