@@ -196,7 +196,7 @@ CCTarEncoder.prototype.add = function( blob ) {
       this.save( function( blob ) {
         this.filename = this.baseFilename + '-part-' + pad( this.part );
         if (this.settings.autoSaveCallback) {
-					this.settings.autoSaveCallback(blob, this.filename)+this.extension;
+					this.settings.autoSaveCallback(blob, this.filename+this.extension);
 				} else {
 					download( blob, this.filename + this.extension, this.mimeType );
 				}
@@ -321,7 +321,7 @@ CCWebMEncoder.prototype.add = function( canvas ) {
 		this.save( function( blob ) {
 			this.filename = this.baseFilename + '-part-' + pad( this.part );
 			if (this.settings.autoSaveCallback) {
-				this.settings.autoSaveCallback(blob, this.filename)+this.extension;
+				this.settings.autoSaveCallback(blob, this.filename+this.extension);
 			} else {
 				download( blob, this.filename + this.extension, this.mimeType );
 			}
