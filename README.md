@@ -1,3 +1,14 @@
+# Custom CCpature for Muzefuze.com
+In this fork I am adding features and fixing bugs to support my project [MuzeFuze](http://muzefuze.com)
+
+Changelist from main repository:
+
+## Returns current frame during rendering
+## Does not override audio & video elements' currentTime
+## Add a callback parameter (autoSaveCallback) when using autoSaveTime
+
+
+
 # CCapture.js - A library to capture canvas-based animations
 CCapture.js is a library to help capturing animations created with HTML5 `canvas` at a fixed framerate. 
 
