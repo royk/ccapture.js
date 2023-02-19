@@ -3,9 +3,9 @@ In this fork I am adding features and fixing bugs to support my project [MuzeFuz
 
 Changelist from main repository:
 
-## Returns current frame during rendering
-## Does not override audio & video elements' currentTime
-## Add a callback parameter (autoSaveCallback) when using autoSaveTime
+- Returns current frame during rendering
+- Does not override audio & video elements' currentTime
+- Add a callback parameter (autoSaveCallback) when using autoSaveTime
 
 
 
