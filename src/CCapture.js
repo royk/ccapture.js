@@ -232,21 +232,78 @@ CCTarEncoder.prototype.dispose = function() {
 
 }
 
+function CCArrayEncoder( settings ) {
+
+  CCFrameEncoder.call( this, settings );
+
+  this.tape = []
+  this.count = 0;
+  this.part = 1;
+  this.frames = 0;
+
+}
+
+CCArrayEncoder.prototype = Object.create( CCFrameEncoder.prototype );
+
+CCArrayEncoder.prototype.start = function(){
+
+  this.dispose();
+
+};
+
+CCArrayEncoder.prototype.add = function( blob ) {
+
+	this.tape.push(blob);
+  if( this.settings.autoSaveTime > 0 && ( this.frames / this.settings.framerate ) >= this.settings.autoSaveTime ) {
+      this.save( function( blob ) {
+        if (this.settings.autoSaveCallback) {
+					this.settings.autoSaveCallback(this.tape);
+				} else {
+					download(this.tape);
+				}
+        var count = this.count;
+        this.dispose();
+        this.count = count+1;
+        this.part++;
+        this.frames = 0;
+        this.step();
+      }.bind( this ) )
+    } else {
+      this.count++;
+      this.frames++;
+      this.step();
+    }
+  }
+
+
+CCArrayEncoder.prototype.save = function( callback ) {
+
+  callback( this.tape );
+
+}
+
+CCArrayEncoder.prototype.dispose = function() {
+
+  this.tape = [];
+  this.count = 0;
+
+}
+
 function CCPNGEncoder( settings ) {
 
-	CCTarEncoder.call( this, settings );
+	CCArrayEncoder.call( this, settings );
 
 	this.type = 'image/png';
 	this.fileExtension = '.png';
 
 }
 
-CCPNGEncoder.prototype = Object.create( CCTarEncoder.prototype );
+CCPNGEncoder.prototype = Object.create( CCArrayEncoder.prototype );
 
 CCPNGEncoder.prototype.add = function( canvas ) {
 
 	canvas.toBlob( function( blob ) {
-		CCTarEncoder.prototype.add.call( this, blob );
+		CCArrayEncoder.prototype.add.call( this, blob );
 	}.bind( this ), this.type )
 
 }
